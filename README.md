@@ -1,3 +1,0 @@
-# CodeReviewFirst
-
-Поляк Герман
