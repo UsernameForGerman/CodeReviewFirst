@@ -1,6 +1,6 @@
 import math
 import os
-from tkinter import *
+from tkinter import Tk, PhotoImage, Label, Button
 
 class Aircraft():
     x, y = 0, 0                 #aircraft coordinates in the plane of aircraft
@@ -53,7 +53,7 @@ def findWayPointCollision(firstAircraft, secondAircraft):
         return [x, y, z]
 
 #not used
-def getTimeWayPointArrival(inputAircraft, listOfCoordinatesWPCollision):
+def getTimeWPArrival(inputAircraft, listOfCoordinatesWPCollision):
     if (listOfCoordinatesWPCollision != 0):
         #x, y, z - waypoint of arrival
         line = inputAircraft.calculateLine()
@@ -75,7 +75,9 @@ def distanceAircrafts(mainAircraft, inputAircraft):
 def willBeCollision(firstAircraft, secondAircraft):
     coordinatesWPCollision = findWayPointCollision(firstAircraft, secondAircraft)
     if (coordinatesWPCollision != 0):
-        if (getTimeWayPointArrival(firstAircraft, coordinatesWPCollision) == getTimeWayPointArrival(secondAircraft, coordinatesWPCollision)):
+        firstTime = getTimeWPArrival(firstAircraft, coordinatesWPCollision)
+        secondTime = getTimeWPArrival(secondAircraft, coordinatesWPCollision)
+        if (firstTime == secondTime):
             return True
         else:
             return False
@@ -148,7 +150,8 @@ def showTCAS(listAircrafts, scale):
     planes = [[0, 0]]
     for i in range(1, len(listAircrafts)):
         distance = distanceAircrafts(listAircrafts[0], listAircrafts[i])
-        xPlane, yPlane = str(200 + (listAircrafts[i].x - 0) * 247 / scale), str(337 - (listAircrafts[i].y - 0) * 247 / scale)
+        xPlane = str(200 + (listAircrafts[i].x - 0) * 247 / scale)
+        yPlane = str(337 - (listAircrafts[i].y - 0) * 247 / scale)
         xPlaneDistance = str(225 + (listAircrafts[i].x - 0) * 247 / scale)
         yPlaneDistance = str(345 - (listAircrafts[i].y - 0) * 247 / scale)
         textPlane = str(distance) + "nm"
